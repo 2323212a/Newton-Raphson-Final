@@ -62,6 +62,28 @@ namespace Newton_Raphson
                 MessageBox.Show("Ingrese al menos un coeficiente válido para la función de potencia cuarta.");
                 return;
             }
+            if (string.IsNullOrWhiteSpace(textBox1.Text) &&
+                string.IsNullOrWhiteSpace(textBox2.Text) &&
+                string.IsNullOrWhiteSpace(textBox3.Text) &&
+                string.IsNullOrWhiteSpace(textBox4.Text) &&
+                string.IsNullOrWhiteSpace(textBox5.Text))
+
+            {
+                MessageBox.Show("Debe ingresar al menos un coeficiente antes de continuar.",
+                                "Error de función", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            bool tieneTerminoConX = !string.IsNullOrEmpty(textBox1.Text.Trim()) ||
+                        !string.IsNullOrEmpty(textBox2.Text.Trim()) ||
+                        !string.IsNullOrEmpty(textBox3.Text.Trim()) ||
+                        !string.IsNullOrEmpty(textBox4.Text.Trim());
+
+            if (!tieneTerminoConX)
+            {
+                MessageBox.Show("La función no puede ser solo una constante. Ingrese al menos un término con x.",
+                                "Error de función", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
             funcionParaMostrar = string.Join(" ", partesFuncionMostrar);
             funcionPotenciaCuarta = string.Join(" ", partesFuncionEvaluar);
@@ -172,8 +194,9 @@ namespace Newton_Raphson
             }
 
             Datos_extra siguiente = new Datos_extra(funcionPotenciaCuarta);
-            siguiente.Show();
-            this.Hide();  
+            this.Hide();
+            siguiente.ShowDialog();  // ⬅️ esto lo pone al frente y bloquea el anterior
+            this.Show();
         }
 
         private void BloquearTextBoxes()
@@ -184,6 +207,7 @@ namespace Newton_Raphson
             textBox4.Enabled = false;
             textBox5.Enabled = false;
         }
+
 
         private void DesbloquearTextBoxes()
         {

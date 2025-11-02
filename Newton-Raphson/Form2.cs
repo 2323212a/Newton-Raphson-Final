@@ -26,11 +26,9 @@ namespace Newton_Raphson
 
         private void btnEmpezar_Click(object sender, EventArgs e)
         {
-           
-            this.DialogResult = DialogResult.OK;
-
-            // Cerramos este formulario.
-            this.Close();
+            Form1 form1 = new Form1();
+            form1.ShowDialog();
+            
 
         }
 
